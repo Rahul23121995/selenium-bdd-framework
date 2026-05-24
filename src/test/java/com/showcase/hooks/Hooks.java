@@ -3,6 +3,7 @@ package com.showcase.hooks;
 import com.showcase.config.ConfigReader;
 import com.showcase.driver.DriverFactory;
 import com.showcase.driver.DriverManager;
+import com.showcase.utils.ScreenRecorderUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -24,6 +25,11 @@ public class Hooks {
         log.info("========================================= START SCENARIO =========================================");
         log.info("Scenario Name: {}", scenario.getName());
         log.info("Tags: {}", scenario.getSourceTagNames());
+
+        // Dynamic Video Recording startup (only runs on local headed execution to prevent headless errors)
+        if (ConfigReader.isVideoRecordEnabled()) {
+            ScreenRecorderUtil.startRecording(scenario.getName());
+        }
 
         // Initialize driver instance for current execution thread
         WebDriver driver = DriverFactory.createInstance();
@@ -52,6 +58,11 @@ public class Hooks {
             } catch (Exception e) {
                 log.error("Failed to process teardown screenshot: ", e);
             } finally {
+                // Stop visual recording if active
+                if (ConfigReader.isVideoRecordEnabled()) {
+                    ScreenRecorderUtil.stopRecording();
+                }
+                
                 // Clean up ThreadLocal driver instance
                 DriverManager.quitDriver();
                 log.info("========================================= END SCENARIO =========================================");

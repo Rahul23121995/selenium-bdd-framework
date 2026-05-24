@@ -52,4 +52,9 @@ public class ConfigReader {
     public static String getUrl() {
         return getProperty("url") != null ? getProperty("url").trim() : "https://www.saucedemo.com";
     }
+
+    public static boolean isVideoRecordEnabled() {
+        String record = getProperty("video.record");
+        return record != null && Boolean.parseBoolean(record.trim());
+    }
 }
