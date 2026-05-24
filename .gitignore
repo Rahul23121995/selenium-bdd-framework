@@ -1,0 +1,37 @@
+# Maven Build Outputs
+target/
+*.releaseBackup
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# IntelliJ IDEA Metadata
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse Metadata
+.classpath
+.project
+.settings/
+.metadata/
+
+# Visual Studio Code Metadata
+.vscode/
+
+# Local Operating System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Log files
+*.log
+logs/
+target/logs/
+
+# Maven Wrapper Cache
+.mvn/wrapper/maven-wrapper.jar

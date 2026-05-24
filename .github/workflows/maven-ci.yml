@@ -1,0 +1,55 @@
+name: Java Selenium Cucumber BDD CI Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code Repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: Set up Chrome Browser
+      uses: browser-actions/setup-chrome@v1
+      with:
+        chrome-version: 'stable'
+
+    - name: Execute Parallel Tests
+      # Headless execution is enabled via config.properties (headless=true)
+      run: mvn clean test
+
+    - name: Upload Cucumber HTML Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: cucumber-html-reports
+        path: target/cucumber-reports/
+        retention-days: 7
+
+    - name: Upload Extent Reports Dashboard
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: extent-reports-dashboard
+        path: target/ExtentReport/
+        retention-days: 7
+
+    - name: Upload Execution Log files
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-execution-logs
+        path: target/logs/
+        retention-days: 7
