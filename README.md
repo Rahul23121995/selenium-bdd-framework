@@ -16,22 +16,22 @@ This framework employs a decoupled, highly maintainable design utilizing **PicoC
 
 ```mermaid
 graph TD
-    subgraph TestNG Runner Layer
+    subgraph "TestNG Runner Layer"
         Runner[TestRunner.java]
     end
 
-    subgraph Cucumber BDD Orchestration
+    subgraph "Cucumber BDD Orchestration"
         Hooks[Hooks.java]
         Steps[Step Definitions]
         Context[TestContext.java - Pico DI]
     end
 
-    subgraph Page Object Model (POM) Layer
+    subgraph "Page Object Model (POM) Layer"
         BasePage[BasePage.java - Sync Engine]
         Pages[Page Objects - Fluent API]
     end
 
-    subgraph Browser Engine Layer
+    subgraph "Browser Engine Layer"
         Factory[DriverFactory.java]
         Manager[DriverManager.java - ThreadLocal]
         Drivers[(WebDrivers: Chrome/FF/Edge)]
