@@ -144,11 +144,17 @@ Upon test completion, review the beautifully compiled visual dashboard reports:
 
 ### 📋 1. ExtentReports Dashboard
 Located at: `target/ExtentReport/ExtentReport.html`
+
+![ExtentReports Dashboard Mockup](assets/extent-report-mockup.png)
+
 - Contains execution pie charts, category tags summaries, run statistics, step-by-step logging, and detailed browser error descriptions.
 - Dynamic responsive HTML layout.
 
 ### 📄 2. Cucumber HTML Report
 Located at: `target/cucumber-reports/cucumber-html-report.html`
+
+![Cucumber BDD Test Logs Mockup](assets/cucumber-logs-mockup.png)
+
 - Contains high-level step metrics and native scenario executions.
 
 ### 📷 3. Failure Screenshots
