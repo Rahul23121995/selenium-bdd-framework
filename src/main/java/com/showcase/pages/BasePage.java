@@ -50,12 +50,25 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 
+    /**
+     * Performs a click via JavaScript Executor on an element found by a locator.
+     * Bypasses physical layout collisions, z-index overlaps, and fixed-header interceptions.
+     *
+     * @param locator The selenium By locator of the element to click.
+     */
     protected void clickViaJS(By locator) {
         log.info("Clicking element via JavaScript: {}", locator);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         executeJavaScript("arguments[0].click();", element);
     }
 
+    /**
+     * Performs a click via JavaScript Executor on an already located WebElement.
+     * Bypasses physical layout collisions, z-index overlaps, and fixed-header interceptions.
+     *
+     * @param element     The WebElement to click.
+     * @param elementName The descriptive name of the element for logging purposes.
+     */
     protected void clickViaJS(WebElement element, String elementName) {
         log.info("Clicking element via JavaScript: {}", elementName);
         wait.until(ExpectedConditions.visibilityOf(element));
