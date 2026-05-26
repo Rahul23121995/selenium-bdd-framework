@@ -26,16 +26,37 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    /**
+     * Navigates the browser to the specified login page URL.
+     * Part of the Fluent API implementation.
+     *
+     * @param url Target URL to navigate.
+     * @return The active LoginPage instance for method chaining.
+     */
     public LoginPage navigateTo(String url) {
         driver.get(url);
         return this;
     }
 
+    /**
+     * Types a username into the username input field.
+     * Part of the Fluent API implementation.
+     *
+     * @param username The client username to input.
+     * @return The active LoginPage instance for method chaining.
+     */
     public LoginPage enterUsername(String username) {
         writeText(usernameField, username, "Username field");
         return this;
     }
 
+    /**
+     * Types a password into the password input field.
+     * Part of the Fluent API implementation.
+     *
+     * @param password The client password to input.
+     * @return The active LoginPage instance for method chaining.
+     */
     public LoginPage enterPassword(String password) {
         writeText(passwordField, password, "Password field");
         return this;
