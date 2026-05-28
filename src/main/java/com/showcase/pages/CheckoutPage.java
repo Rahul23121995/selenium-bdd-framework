@@ -44,6 +44,15 @@ public class CheckoutPage extends BasePage {
         super(driver);
     }
 
+    /**
+     * Enters user details into the Checkout Information form.
+     * Part of the Fluent API implementation.
+     *
+     * @param firstName  Customer first name.
+     * @param lastName   Customer last name.
+     * @param postalCode Customer postal/zip code.
+     * @return The active CheckoutPage instance for method chaining.
+     */
     public CheckoutPage enterInformation(String firstName, String lastName, String postalCode) {
         writeText(firstNameInput, firstName, "First Name");
         writeText(lastNameInput, lastName, "Last Name");
@@ -51,22 +60,40 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
+    /**
+     * Submits the user info form and proceeds to the Checkout Overview page.
+     */
     public void clickContinue() {
         click(continueButton, "Continue button");
     }
 
+    /**
+     * Parses and retrieves the item subtotal amount displayed on the Overview page.
+     *
+     * @return Item subtotal as double.
+     */
     public double getSubtotal() {
         String subtotalText = readText(subtotalLabel, "Subtotal label")
                 .replaceAll("[^0-9.]", "");
         return Double.parseDouble(subtotalText);
     }
 
+    /**
+     * Parses and retrieves the billing tax amount displayed on the Overview page.
+     *
+     * @return Tax amount as double.
+     */
     public double getTax() {
         String taxText = readText(taxLabel, "Tax label")
                 .replaceAll("[^0-9.]", "");
         return Double.parseDouble(taxText);
     }
 
+    /**
+     * Parses and retrieves the final total amount displayed on the Overview page.
+     *
+     * @return Total amount as double.
+     */
     public double getTotal() {
         String totalText = readText(totalLabel, "Total label")
                 .replaceAll("[^0-9.]", "");
@@ -75,6 +102,9 @@ public class CheckoutPage extends BasePage {
 
     /**
      * Verifies that the item subtotal + tax mathematically equals the final total charge.
+     * Employs standard round-to-nearest cents to prevent floating point precision bugs.
+     *
+     * @return true if subtotal + tax equals total, false otherwise.
      */
     public boolean verifyCalculations() {
         double subtotal = getSubtotal();
