@@ -19,6 +19,13 @@ import java.time.Duration;
 public class DriverFactory {
     private static final Logger log = LogManager.getLogger(DriverFactory.class);
 
+    /**
+     * Instantiates and configures a WebDriver session based on system settings.
+     * Supports Chrome, Firefox, and Edge with dynamic argument loading for headed
+     * or headless modes, page load timeouts, and implicit wait synchronizations.
+     *
+     * @return Fully configured and maximized WebDriver session.
+     */
     public static WebDriver createInstance() {
         WebDriver driver;
         String browser = ConfigReader.getBrowser();
