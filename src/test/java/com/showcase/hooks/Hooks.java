@@ -20,6 +20,13 @@ import org.openqa.selenium.WebDriver;
 public class Hooks {
     private static final Logger log = LogManager.getLogger(Hooks.class);
 
+    /**
+     * Executes prior to each Cucumber scenario.
+     * Starts automated screen recording when enabled, initializes the driver factory,
+     * registers the WebDriver in the thread container, and navigates to the landing page.
+     *
+     * @param scenario The active Gherkin Scenario container under execution.
+     */
     @Before
     public void setup(Scenario scenario) {
         log.info("========================================= START SCENARIO =========================================");
@@ -41,6 +48,13 @@ public class Hooks {
         driver.get(url);
     }
 
+    /**
+     * Executes immediately following each Cucumber scenario.
+     * If the scenario failed, grabs a browser screenshot and embeds it inline inside reports.
+     * Cleanly shuts down screen recorders, closes active web driver instances, and clears ThreadLocal bindings.
+     *
+     * @param scenario The active Gherkin Scenario container under execution.
+     */
     @After
     public void teardown(Scenario scenario) {
         WebDriver driver = DriverManager.getDriver();
