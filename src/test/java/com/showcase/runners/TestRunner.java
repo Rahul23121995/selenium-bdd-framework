@@ -26,8 +26,10 @@ import org.testng.annotations.DataProvider;
 public class TestRunner extends AbstractTestNGCucumberTests {
 
     /**
-     * Overrides TestNG scenarios provider and sets parallel = true to run 
-     * multiple scenarios concurrently on different threads.
+     * Overrides the default TestNG scenarios provider to execute tests in parallel.
+     * Maps scenarios concurrently on different thread channels utilizing the ThreadLocal driver instances.
+     *
+     * @return 2D array representing Gherkin scenarios to be run.
      */
     @Override
     @DataProvider(parallel = true)
