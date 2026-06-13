@@ -20,17 +20,31 @@ public class ProductSteps {
     private final TestContext context;
     private final ProductsPage productsPage;
 
+    /**
+     * Instantiates the ProductSteps definition class.
+     * Constructor injection automatically maps the shared TestContext session container.
+     *
+     * @param context PicoContainer shared session context.
+     */
     public ProductSteps(TestContext context) {
         this.context = context;
         this.productsPage = context.getProductsPage();
     }
 
+    /**
+     * Verifies that the catalog page is loaded successfully.
+     */
     @Given("the catalog page is loaded and displaying product listings")
     public void verifyCatalogLoaded() {
         log.info("Step: Checking if product listings catalog page is fully loaded.");
         Assert.assertTrue(productsPage.isPageLoaded(), "Products Page was not loaded successfully.");
     }
 
+    /**
+     * Sorts the products by a specified criteria and asserts the sorting result is mathematically correct.
+     *
+     * @param sortOption The visual sorting dropdown option text.
+     */
     @When("the user sorts the products by {string}")
     public void sortProductsByOption(String sortOption) {
         log.info("Step: Selecting catalog sorting option: '{}'", sortOption);
@@ -47,6 +61,11 @@ public class ProductSteps {
         }
     }
 
+    /**
+     * Adds a list of products to the shopping cart, utilizing settle pauses to handle re-renders stably.
+     *
+     * @param dataTable The Cucumber DataTable containing target product name strings.
+     */
     @When("the user adds the following items to the shopping cart:")
     public void addProductsList(DataTable dataTable) {
         List<String> items = dataTable.asList();
@@ -62,12 +81,20 @@ public class ProductSteps {
         }
     }
 
+    /**
+     * Asserts the shopping cart badge matches the expected quantity of added items.
+     *
+     * @param expectedCount The expected numeric count of cart items.
+     */
     @Then("the shopping cart badge count should display {string}")
     public void verifyCartBadgeCount(String expectedCount) {
         log.info("Step: Verifying active shopping cart badge displays quantity: '{}'", expectedCount);
         Assert.assertEquals(productsPage.getCartCount(), expectedCount, "Shopping cart badge count mismatch.");
     }
 
+    /**
+     * Navigates to the shopping cart by clicking the cart header icon.
+     */
     @When("the user clicks on the shopping cart icon")
     public void clickShoppingCartIcon() {
         log.info("Step: Navigating to cart details via header icon click.");
