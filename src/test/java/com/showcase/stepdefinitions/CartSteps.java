@@ -19,11 +19,22 @@ public class CartSteps {
     private final TestContext context;
     private final CartPage cartPage;
 
+    /**
+     * Instantiates the CartSteps definition class.
+     * Constructor injection automatically maps the shared TestContext session container.
+     *
+     * @param context PicoContainer shared session context.
+     */
     public CartSteps(TestContext context) {
         this.context = context;
         this.cartPage = context.getCartPage();
     }
 
+    /**
+     * Verifies that the shopping cart page is displayed and matches the expected item quantity.
+     *
+     * @param expectedItemsCount The expected quantity of items inside the cart.
+     */
     @Then("the shopping cart page should display, showing {int} items")
     public void verifyCartPageDisplay(int expectedItemsCount) {
         log.info("Step: Verifying Cart page loads showing exact count of: {}", expectedItemsCount);
@@ -32,6 +43,11 @@ public class CartSteps {
                 "Actual item count in cart container does not match expectations.");
     }
 
+    /**
+     * Verifies that the cart list strictly contains all the expected product names.
+     *
+     * @param dataTable The Cucumber DataTable containing expected product name strings.
+     */
     @Then("the cart list should contain the following items:")
     public void verifyCartContainsItems(DataTable dataTable) {
         List<String> expectedItems = dataTable.asList();
@@ -42,6 +58,9 @@ public class CartSteps {
         }
     }
 
+    /**
+     * Initiates checkout by clicking the checkout button.
+     */
     @When("the user clicks the checkout button on the cart page")
     public void clickCheckoutButton() {
         log.info("Step: Clicking on checkout initiation button.");
